@@ -63,6 +63,41 @@ app.post("/add-musicians", (req, res)=>{
 })
 
 
+app.patch("/update-musician", (req, res) => {
+  const { id, name, gender, song } = req.body;
+
+ 
+  const musician = musician_db.find((m) => m.id === id);
+
+  if (!musician) {
+    return res.status(404).json({
+      success: false,
+      message: "Musician not found",
+    });
+  }
+
+ 
+  if (musician.name === name || musician.song === song) {
+    return res.status(400).json({
+      success: false,
+      message: "Musician name or song is still the same as initial",
+    });
+  }
+
+ 
+  musician.name = name || musician.name;
+  musician.gender = gender || musician.gender;
+  musician.song = song || musician.song;
+
+  console.log("Updated Musician:", musician);
+
+  res.status(200).json({
+    success: true,
+    message: "Musician updated successfully",
+    data: musician,
+  });
+
+});
 
 
 
