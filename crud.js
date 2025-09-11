@@ -99,6 +99,21 @@ app.patch("/update-musician", (req, res) => {
 
 });
 
+app.delete("/delete", (req,res) => {
+
+     const musician = musician_db.find((m) => m.id === id);
+
+     if(!musician){
+        return res.status(400).json({
+            success: false,
+            message: "Could not delete musician"
+        })
+     }
+
+     
+
+})
+
 
 
 app.listen(PORT, () => {
