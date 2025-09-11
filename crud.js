@@ -37,11 +37,33 @@ if(musician_db.length == 0){
 
 app.post("/add-musicians", (req, res)=>{
 
-    console.log("Added Musician: ",req.body);
+    const {name, gender, song} = req.body
+
+    if(!name || !gender || !song){
+        return res.status(400).json({
+            success: false,
+            message: "Name, gender and song is required"
+        })
+    }
+
+    const musician = {
+        id: crypto.randomUUID(),
+        name: name,
+        gender: gender,
+        song: song
+    }
+
+    musician_db.push(musician)
+
+
+    console.log("Added Musician: ",musician_db);
     
 
-    res.send("Musician added successfuly")
+    res.status(200).send("Musician added successfuly")
 })
+
+
+
 
 
 app.listen(PORT, () => {
