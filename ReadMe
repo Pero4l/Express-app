@@ -1,3 +1,8 @@
 I am learning Express
 
-I did the CRUD operation on my server
+I did the CRUD operation on my server with different endpoint.
+
+1. Create a Musician
+2. Read all Create a Musician
+3. update a Create a Musician
+4. Delete a Create a Musician
