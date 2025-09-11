@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json())
 
-const musician_db = [
+let musician_db = [
     {
         id: 1,
         "name": "Lil baby",
@@ -99,20 +99,30 @@ app.patch("/update-musician", (req, res) => {
 
 });
 
-app.delete("/delete", (req,res) => {
+app.delete("/delete", (req, res) => {
+  const { id } = req.body;
 
-     const musician = musician_db.find((m) => m.id === id);
+  const musician = musician_db.find((m) => m.id === id);
 
-     if(!musician){
-        return res.status(400).json({
-            success: false,
-            message: "Could not delete musician"
-        })
-     }
+  if (!musician) {
+    return res.status(400).json({
+      success: false,
+      message: "Could not delete musician",
+    });
+  }
 
-     
+  // Reassign the filtered array back
+  musician_db = musician_db.filter((artist) => artist.id !== id);
 
-})
+  console.log("Musician deleted successfully:", musician_db);
+
+  res.status(200).json({
+    success: true,
+    message: "Musician deleted successfully",
+    data: musician_db,
+  });
+});
+
 
 
 
